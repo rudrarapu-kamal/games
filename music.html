@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="style.css" >  
+</head>
+<body>
+    <div class ="main_div">
+      <div class="music_container">
+       <h2 id="title">Dead To Me</h2>
+       <h3 id="artist">kamal_619</h3>
+       <div class="image_container">
+       <img src="pictures/deadtome.jpeg" alt=" "/>
+       </div>
+       
+       <audio src="music/Music1.mp3"> </audio>
+      <div class="music_controls">
+        <i class="fa fa-backward" id ="prev" title="previous"></i>
+        <i class="fa fa-play-circle main_button"id ="play-circle" title="play-circle"></i>
+        <i class="fa fa-forward" id="forward" title="forward"></i>
+        </div>
+      </div>
+      </div>
+      <script>
+        const music = document.querySelector("audio");
+        const image = document.querySelector("img")
+        const play  = document.getElementById("play-circle");
+        const title = document.getElementById("title");
+        const artist = document.getElementById("artist");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("forward");
+
+        let isPlaying=false;
+        
+        // for play function
+        const playMusic =()=>{
+          isPlaying=true;
+            music.play();
+            play.classList.replace("fa-play-circle", "fa-pause");
+            image.classList.add("anime");
+
+        };
+
+        //for pause function//
+        const pauseMusic =()=>{
+          isPlaying=false;
+            music.pause();
+            play.classList.replace("fa-pause", "fa-play-circle");
+            image.classList.remove("anime");
+
+        };
+        play.addEventListener("click",()=>{
+          if(isPlaying){
+            pauseMusic();
+          }
+          else{
+            playMusic();
+          }
+        });
+        const songs = [
+            {
+                name: "Music1",
+                title: "deadtome",
+                artist: "sexwhales",
+            },
+            {
+                name: "Music2",
+                title: "Here",
+                artist: "AlessaCara",
+            },
+            {
+                name: "Music3",
+                title: "Hills",
+                artist: "Emmanuel",
+            },
+        ];
+        const loadSongs = (songs) => {
+        title.textContent = songs.title;
+        artist.textContent = songs.artist;
+        music.src = "Music/"+songs.name+".mp3";
+        image.src = "Pictures/"+songs.title+".jpeg";
+    };
+    songIndex = 0;
+    const nextSong = () => {
+        songIndex=(songIndex+1)%songs.length;
+        loadSongs(songs[songIndex]);
+        playMusic();
+    };
+    const prevSong = () => {
+        songIndex=(songIndex-1+songs.length)%songs.length;
+        loadSongs(songs[songIndex]);
+        playMusic();
+    };
+    next.addEventListener('click',nextSong);
+    prev.addEventListener('click',prevSong);
+    </script>
+
+</body>
+</html>
